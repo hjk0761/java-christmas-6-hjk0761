@@ -19,21 +19,22 @@ public class OutputView {
     private static final String BADGE = "<12월 이벤트 배지>";
     private static final DecimalFormat THOUSAND_SEPARATOR = new DecimalFormat("#,###");
 
-    public void printInit(){
+    public void printInit() {
         System.out.println(INIT_MESSAGE);
         System.out.println(READ_DATE);
     }
 
-    public void printOrder(){
+    public void printOrder() {
         System.out.println(READ_MENU);
     }
 
-    public void printEvent(){
-        System.out.println(INIT_EVENT);
+    public void printEvent(int date) {
+        System.out.printf(INIT_EVENT, date);
+        System.out.println();
         System.out.println();
     }
 
-    public void printOrderedMenu(OrderedMenu orderedMenu){
+    public void printOrderedMenu(OrderedMenu orderedMenu) {
         System.out.println(ORDERED_MENU);
         for (Map.Entry<String, Integer> entry : orderedMenu.getOrderedMenu().entrySet()){
             System.out.println(entry.getKey() + " " + entry.getValue() + "개");
@@ -41,42 +42,42 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printTotalValueBeforeDiscount(int totalValueBeforeDiscount){
+    public void printTotalValueBeforeDiscount(int totalValueBeforeDiscount) {
         System.out.println(TOTAL_VALUE_BEFORE_DISCOUNT);
         System.out.println(THOUSAND_SEPARATOR.format(totalValueBeforeDiscount) + "원");
         System.out.println();
     }
 
-    public void printGiveaway(boolean hasGiveaway){
+    public void printGiveaway(boolean hasGiveaway) {
         String giveaway = "없음";
-        if (hasGiveaway){
+        if (hasGiveaway) {
             giveaway = "샴페인 1개";
         }
         System.out.println(GIVEAWAY);
         System.out.println(giveaway);
     }
 
-    public void printBenefits(Map<String, Integer> benefits){
+    public void printBenefits(Map<String, Integer> benefits) {
         System.out.println(BENEFITS);
-        for (Map.Entry<String, Integer> entry : benefits.entrySet()){
+        for (Map.Entry<String, Integer> entry : benefits.entrySet()) {
             System.out.println(entry.getKey() + ": -" + entry.getValue() + "원");
         }
         System.out.println();
     }
 
-    public void printTotalBenefits(int totalBenefits){
+    public void printTotalBenefits(int totalBenefits) {
         System.out.println(TOTAL_BENEFITS);
         System.out.println("-" + THOUSAND_SEPARATOR.format(totalBenefits) + "원");
         System.out.println();
     }
 
-    public void printTotalValueAfterDiscount(int totalValueAfterDiscount){
+    public void printTotalValueAfterDiscount(int totalValueAfterDiscount) {
         System.out.println(TOTAL_VALUE_AFTER_DISCOUNT);
         System.out.println(THOUSAND_SEPARATOR.format(totalValueAfterDiscount) + "원");
         System.out.println();
     }
 
-    public void printBadge(String badge){
+    public void printBadge(String badge) {
         System.out.println(BADGE);
         System.out.println(badge);
     }
