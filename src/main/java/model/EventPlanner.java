@@ -23,20 +23,30 @@ public class EventPlanner {
         this.totalValueBeforeDiscount = orderedMenu.calculateTotalValue();
     }
 
-    public int getTotalValueBeforeDiscount(){
+    public int getDate() {
+        return date.getDate();
+    }
+
+    public OrderedMenu getOrderedMenu() {
+        return orderedMenu;
+    }
+
+    public int getTotalValueBeforeDiscount() {
         return totalValueBeforeDiscount;
     }
 
-    public void calculateGiveaway(){
+    public boolean calculateGiveaway() {
         if (totalValueBeforeDiscount >= GIVEAWAY_THRESHOLD){
             giveaway.put(GIVEAWAY_ITEM, EventConfig.MENU.valueOfKoreanName(GIVEAWAY_ITEM).getValue());
         }
+        return giveaway.size() == 1;
     }
 
-    public void calculateBenefits(){
+    public Map<String, Integer> calculateBenefits(){
         Map<String, Integer> discounts = discount.calculateDiscount(date.getDate(), orderedMenu.calculateFoodTypeNumber().get("dessert"), orderedMenu.calculateFoodTypeNumber().get("main"));
         benefits = new HashMap<>(discounts);
         giveaway.forEach((key, value) -> benefits.merge(key, value, (v1, v2) -> v2));
+        return benefits;
     }
 
     public int calculateTotalBenefits(){

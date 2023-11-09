@@ -19,8 +19,15 @@ public class OutputView {
     private static final String BADGE = "<12월 이벤트 배지>";
     private static final DecimalFormat THOUSAND_SEPARATOR = new DecimalFormat("#,###");
 
+    public void printMessage(String message){
+        System.out.println(message);
+    }
+
     public void printInit() {
         System.out.println(INIT_MESSAGE);
+    }
+
+    public void printDate() {
         System.out.println(READ_DATE);
     }
 

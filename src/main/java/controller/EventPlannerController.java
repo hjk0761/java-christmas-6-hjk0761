@@ -19,19 +19,47 @@ public class EventPlannerController {
 
     private void start(){
         outputView.printInit();
-        Date date = inputView.readDate();
+        Date date = setDate();
         outputView.printOrder();
-        OrderedMenu orderedMenu = inputView.readMenu();
+        OrderedMenu orderedMenu = setOrderedMenu();
         eventPlanner = new EventPlanner(date, orderedMenu);
     }
 
+    private Date setDate(){
+        Date date = null;
+        do {
+            try {
+                outputView.printDate();
+                date = inputView.readDate();
+            } catch (IllegalArgumentException e){
+                outputView.printMessage(e.getMessage());
+            }
+        } while(date == null);
+        return date;
+    }
+
+    private OrderedMenu setOrderedMenu(){
+        OrderedMenu orderedMenu = null;
+        do {
+            try {
+                outputView.printOrder();
+                orderedMenu = inputView.readMenu();
+            } catch (IllegalArgumentException e){
+                outputView.printMessage(e.getMessage());
+            }
+        } while(orderedMenu == null);
+        return orderedMenu;
+    }
+
     private void process(){
-        int totalValueBeforeDiscount = eventPlanner.getTotalValueBeforeDiscount();
-        eventPlanner.calculateGiveaway();
-        eventPlanner.calculateBenefits();
-        int totalBenefits = eventPlanner.calculateTotalBenefits();
-        int totalValueAfterDiscount = eventPlanner.calculateTotalValueAfterDiscount();
-        // TODO
+        outputView.printEvent(eventPlanner.getDate());
+        outputView.printOrderedMenu(eventPlanner.getOrderedMenu());
+        outputView.printTotalValueBeforeDiscount(eventPlanner.getTotalValueBeforeDiscount());
+        outputView.printGiveaway(eventPlanner.calculateGiveaway());
+        outputView.printBenefits(eventPlanner.calculateBenefits());
+        outputView.printTotalBenefits(eventPlanner.calculateTotalBenefits());
+        outputView.printTotalValueAfterDiscount(eventPlanner.calculateTotalValueAfterDiscount());
+        // TODO: Badge
     }
 
     private void finish(){
