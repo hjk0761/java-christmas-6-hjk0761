@@ -11,6 +11,7 @@ public class OrderedMenu {
     private static final String ORDER_SEPARATOR = ",";
     private static final String MENU_SEPARATOR = "-";
     private static final int MAX_MENU = 20;
+    private static final String UNIQUE_CONDITION = "beverage";
 
     private final Map<String, Integer> orderedMenu;
 
@@ -21,8 +22,28 @@ public class OrderedMenu {
         validateNotInMenu(orderedMenu);
         validateMenuNumber(orderedMenu);
         validateDuplication(orderedMenu);
-        validateAllBeverage(orderedMenu);
+        validateNotUnique(orderedMenu);
         this.orderedMenu = orderedMenu;
+    }
+
+    public int calculateTotalValue() {
+        int totalValue = 0;
+        for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
+            totalValue += entry.getValue();
+        }
+        return totalValue;
+    }
+
+    public Map<String, Integer> calculateFoodTypeNumber() {
+        Map<String, Integer> foodTypeNumber = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
+            if (foodTypeNumber.containsKey(entry.getKey())){
+                foodTypeNumber.put(entry.getKey(), foodTypeNumber.get(entry.getKey() + 1));
+                continue;
+            }
+            foodTypeNumber.put(entry.getKey(), 1);
+        }
+        return foodTypeNumber;
     }
 
     private void validateEmpty(String inputOrderedMenu){
@@ -76,12 +97,12 @@ public class OrderedMenu {
         }
     }
 
-    private void validateAllBeverage(Map<String, Integer> orderedMenu){
+    private void validateNotUnique(Map<String, Integer> orderedMenu){
         Set<String> typeTester = new HashSet<>();
         for (String menuName : orderedMenu.keySet()){
             typeTester.add(EventConfig.MENU.valueOfKoreanName(menuName).getFoodType());
         }
-        if (typeTester.size() == 1 && typeTester.contains("beverage")){
+        if (typeTester.size() == 1 && typeTester.contains(UNIQUE_CONDITION)){
             throw new IllegalArgumentException(ErrorMessage.ALL_BEVERAGE_MENU.getErrorMessage());
         }
     }
