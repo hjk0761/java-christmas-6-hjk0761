@@ -3,6 +3,7 @@ package config;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class EventConfig {
     public static final List<Integer> WEEKEND = new ArrayList<>(List.of(1, 2, 8, 9, 15, 16, 22, 23, 29, 30));
@@ -41,16 +42,15 @@ public class EventConfig {
 
         public static MENU valueOfKoreanName(String koreanName) {
             return Arrays.stream(values())
-                    .filter(value -> value.koreanName == koreanName)
+                    .filter(value -> Objects.equals(value.koreanName, koreanName))
                     .findAny()
                     .orElse(null);
         }
 
-        public static MENU valueOfFoodType(String foodType) {
-            return Arrays.stream(values())
-                    .filter(value -> value.foodType == foodType)
-                    .findAny()
-                    .orElse(null);
+        public static int valueOfNumberOfFoodType(String foodType) {
+            return (int) Arrays.stream(values())
+                    .filter(value -> Objects.equals(value.foodType, foodType))
+                    .count();
         }
     }
 }
