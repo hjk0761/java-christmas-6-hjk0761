@@ -35,7 +35,9 @@ public class OutputView {
 
     public void printOrderedMenu(OrderedMenu orderedMenu){
         System.out.println(ORDERED_MENU);
-        //메뉴 출력
+        for (Map.Entry<String, Integer> entry : orderedMenu.getOrderedMenu().entrySet()){
+            System.out.println(entry.getKey() + " " + entry.getValue() + "개");
+        }
         System.out.println();
     }
 
