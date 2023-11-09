@@ -1,8 +1,12 @@
 package config;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class EventConfig {
+    public static final List<Integer> WEEKEND = new ArrayList<>(List.of(1, 2, 8, 9, 15, 16, 22, 23, 29, 30));
+    public static final List<Integer> SPECIAL = new ArrayList<>(List.of(3, 10, 17, 24, 25, 31));
     public enum MENU{
         MUSHROOM_SOUP("양송이수프", "appetizer", 6000),
         TAPAS("타파스", "appetizer", 5500),
