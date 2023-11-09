@@ -26,14 +26,14 @@ public class OrderedMenu {
         this.orderedMenu = orderedMenu;
     }
 
-    public Map<String, Integer> getOrderedMenu(){
+    public Map<String, Integer> getOrderedMenu() {
         return orderedMenu;
     }
 
     public int calculateTotalValue() {
         int totalValue = 0;
         for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
-            totalValue += entry.getValue();
+            totalValue += EventConfig.MENU.valueOfKoreanName(entry.getKey()).getValue() * entry.getValue();
         }
         return totalValue;
     }
@@ -41,11 +41,12 @@ public class OrderedMenu {
     public Map<String, Integer> calculateFoodTypeNumber() {
         Map<String, Integer> foodTypeNumber = new HashMap<>();
         for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
-            if (foodTypeNumber.containsKey(entry.getKey())){
-                foodTypeNumber.put(entry.getKey(), foodTypeNumber.get(entry.getKey() + 1));
+            String foodType = EventConfig.MENU.valueOfKoreanName(entry.getKey()).getFoodType();
+            if (foodTypeNumber.containsKey(foodType)){
+                foodTypeNumber.put(foodType, foodTypeNumber.get(foodType + 1));
                 continue;
             }
-            foodTypeNumber.put(entry.getKey(), 1);
+            foodTypeNumber.put(foodType, 1);
         }
         return foodTypeNumber;
     }

@@ -20,7 +20,6 @@ public class EventPlannerController {
     private void start(){
         outputView.printInit();
         Date date = setDate();
-        outputView.printOrder();
         OrderedMenu orderedMenu = setOrderedMenu();
         eventPlanner = new EventPlanner(date, orderedMenu);
     }

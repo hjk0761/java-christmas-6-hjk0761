@@ -62,12 +62,13 @@ public class OutputView {
         }
         System.out.println(GIVEAWAY);
         System.out.println(giveaway);
+        System.out.println();
     }
 
     public void printBenefits(Map<String, Integer> benefits) {
         System.out.println(BENEFITS);
         for (Map.Entry<String, Integer> entry : benefits.entrySet()) {
-            System.out.println(entry.getKey() + ": -" + entry.getValue() + "원");
+            System.out.println(entry.getKey() + ": -" + THOUSAND_SEPARATOR.format(entry.getValue()) + "원");
         }
         System.out.println();
     }
