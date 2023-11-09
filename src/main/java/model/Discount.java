@@ -18,50 +18,42 @@ public class Discount {
 
     public Map<String, Integer> calculateDiscount(int date, int dessert, int main){
         Map<String, Integer> temp = new HashMap<>();
-        int d_day = discountD_DAY(date);
-        if (d_day != 0){
-            temp.put(D_DAY_DISCOUNT, d_day);
-        }
-        int weekday = discountWeekDay(date, dessert);
-        if (weekday != 0){
-            temp.put(WEEKDAY_DISCOUNT, weekday);
-        }
-        int weekend = discountWeedEnd(date, main);
-        if (weekend != 0){
-            temp.put(WEEKEND_DISCOUNT, weekend);
-        }
-        int special = discountSpecial(date);
-        if (special != 0){
-            temp.put(SPECIAL_DISCOUNT, special);
-        }
+        Map<String, Integer> d_day = discountD_DAY(date);
+        d_day.forEach((key, value) -> temp.merge(key, value, (v1, v2) -> v2));
+        Map<String, Integer> weekday = discountWeekDay(date, dessert);
+        weekday.forEach((key, value) -> temp.merge(key, value, (v1, v2) -> v2));
+        Map<String, Integer> weekend = discountWeekEnd(date, main);
+        weekend.forEach((key, value) -> temp.merge(key, value, (v1, v2) -> v2));
+        Map<String, Integer> special = discountSpecial(date);
+        special.forEach((key, value) -> temp.merge(key, value, (v1, v2) -> v2));
         return temp;
     }
 
-    private int discountD_DAY(int day){
+    private Map<String, Integer> discountD_DAY(int day){
         if (day <= D_DAY){
-            return 900 + day * 100;
+            return new HashMap<>(){{put(D_DAY_DISCOUNT, 900 + day * 100);}};
         }
-        return 0;
+        return new HashMap<>();
     }
 
-    private int discountWeekDay(int day, int dessert){
+    private Map<String, Integer> discountWeekDay(int day, int dessert){
         if (!EventConfig.WEEKEND.contains(day)){
-            return dessert * WEEKDAY_DISCOUNT_AMOUNT;
+            return new HashMap<>(){{put(WEEKDAY_DISCOUNT, dessert * WEEKDAY_DISCOUNT_AMOUNT);}};
         }
-        return 0;
+        return new HashMap<>();
     }
 
-    private int discountWeedEnd(int day, int main){
+    private Map<String, Integer> discountWeekEnd(int day, int main){
         if (EventConfig.WEEKEND.contains(day)){
-            return main * WEEKEND_DISCOUNT_AMOUNT;
+            return new HashMap<>(){{put(WEEKEND_DISCOUNT, main * WEEKEND_DISCOUNT_AMOUNT);}};
         }
-        return 0;
+        return new HashMap<>();
     }
 
-    private int discountSpecial(int day){
+    private Map<String, Integer> discountSpecial(int day){
         if (EventConfig.SPECIAL.contains(day)){
-            return SPECIAL_DISCOUNT_AMOUNT;
+            return new HashMap<>(){{put(SPECIAL_DISCOUNT, SPECIAL_DISCOUNT_AMOUNT);}};
         }
-        return 0;
+        return new HashMap<>();
     }
 }
