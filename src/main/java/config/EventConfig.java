@@ -52,5 +52,11 @@ public class EventConfig {
                     .filter(value -> Objects.equals(value.foodType, foodType))
                     .count();
         }
+
+        public static List<String> valueOfFoodTypeList(){
+            return Arrays.stream(values())
+                    .map(MENU::getFoodType)
+                    .toList();
+        }
     }
 }

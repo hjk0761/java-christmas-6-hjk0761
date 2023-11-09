@@ -39,14 +39,15 @@ public class OrderedMenu {
     }
 
     public Map<String, Integer> calculateFoodTypeNumber() {
-        Map<String, Integer> foodTypeNumber = new HashMap<>();
+        Map<String, Integer> foodTypeNumber = new HashMap<>(){{
+            put("appetizer", 0);
+            put("main", 0);
+            put("dessert", 0);
+            put("beverage", 0);
+        }};
         for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
             String foodType = EventConfig.MENU.valueOfKoreanName(entry.getKey()).getFoodType();
-            if (foodTypeNumber.containsKey(foodType)){
-                foodTypeNumber.put(foodType, foodTypeNumber.get(foodType + 1));
-                continue;
-            }
-            foodTypeNumber.put(foodType, 1);
+            foodTypeNumber.put(foodType, foodTypeNumber.get(foodType) + entry.getValue());
         }
         return foodTypeNumber;
     }
