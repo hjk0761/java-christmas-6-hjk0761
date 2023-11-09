@@ -16,21 +16,21 @@ public class Discount {
     private static final String WEEKEND_DISCOUNT = "주말 할인";
     private static final String SPECIAL_DISCOUNT = "특별 할인";
 
-    public Map<String, Integer> calculateDiscount(int day, int dessert, int main){
+    public Map<String, Integer> calculateDiscount(int date, int dessert, int main){
         Map<String, Integer> temp = new HashMap<>();
-        int d_day = discountD_DAY(day);
+        int d_day = discountD_DAY(date);
         if (d_day != 0){
             temp.put(D_DAY_DISCOUNT, d_day);
         }
-        int weekday = discountWeekDay(day, dessert);
+        int weekday = discountWeekDay(date, dessert);
         if (weekday != 0){
             temp.put(WEEKDAY_DISCOUNT, weekday);
         }
-        int weekend = discountWeedEnd(day, main);
+        int weekend = discountWeedEnd(date, main);
         if (weekend != 0){
             temp.put(WEEKEND_DISCOUNT, weekend);
         }
-        int special = discountSpecial(day);
+        int special = discountSpecial(date);
         if (special != 0){
             temp.put(SPECIAL_DISCOUNT, special);
         }
