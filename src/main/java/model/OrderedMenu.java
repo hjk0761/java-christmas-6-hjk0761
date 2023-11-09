@@ -16,10 +16,12 @@ public class OrderedMenu {
 
     public OrderedMenu(String inputOrderedMenu){
         Map<String, Integer> orderedMenu;
+        validateEmpty(inputOrderedMenu);
         orderedMenu = validateForm(inputOrderedMenu);
         validateNotInMenu(orderedMenu);
         validateMenuNumber(orderedMenu);
         validateDuplication(orderedMenu);
+        validateAllBeverage(orderedMenu);
         this.orderedMenu = orderedMenu;
     }
 
@@ -63,7 +65,7 @@ public class OrderedMenu {
             }
         }
         if (totalMenuNumber > MAX_MENU){
-            throw new IllegalArgumentException(ErrorMessage.NON_VALID_MENU.getErrorMessage());
+            throw new IllegalArgumentException(String.format(ErrorMessage.OVER_MAX_MENU.getErrorMessage(), MAX_MENU));
         }
     }
 
@@ -71,6 +73,16 @@ public class OrderedMenu {
         Set<String> duplicationTester = new HashSet<>(orderedMenu.keySet());
         if (duplicationTester.size() != orderedMenu.size()){
             throw new IllegalArgumentException(ErrorMessage.NON_VALID_MENU.getErrorMessage());
+        }
+    }
+
+    private void validateAllBeverage(Map<String, Integer> orderedMenu){
+        Set<String> typeTester = new HashSet<>();
+        for (String menuName : orderedMenu.keySet()){
+            typeTester.add(EventConfig.MENU.valueOfKoreanName(menuName).getFoodType());
+        }
+        if (typeTester.size() == 1 && typeTester.contains("beverage")){
+            throw new IllegalArgumentException(ErrorMessage.ALL_BEVERAGE_MENU.getErrorMessage());
         }
     }
 }
