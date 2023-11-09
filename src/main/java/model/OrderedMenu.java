@@ -26,6 +26,10 @@ public class OrderedMenu {
         this.orderedMenu = orderedMenu;
     }
 
+    public Map<String, Integer> getOrderedMenu(){
+        return orderedMenu;
+    }
+
     public int calculateTotalValue() {
         int totalValue = 0;
         for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
