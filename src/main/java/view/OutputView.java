@@ -61,7 +61,7 @@ public class OutputView {
         String printingGiveaway = "없음";
         if (giveaway.size() != 0) {
             for (Map.Entry<String, Integer> entry : giveaway.entrySet()){
-                printingGiveaway = String.format(entry.getKey(), entry.getValue());
+                printingGiveaway = String.format(MENU_FORMAT, entry.getKey(), entry.getValue());
             }
         }
         System.out.println(GIVEAWAY);
