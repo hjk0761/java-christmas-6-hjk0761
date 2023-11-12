@@ -18,6 +18,7 @@ public class OutputView {
     private static final String TOTAL_VALUE_AFTER_DISCOUNT = "<할인 후 예상 결제 금액>";
     private static final String BADGE = "<12월 이벤트 배지>";
     private static final DecimalFormat THOUSAND_SEPARATOR = new DecimalFormat("#,###");
+    private static final String MENU_FORMAT = "%s %d개";
 
     public void printMessage(String message){
         System.out.println(message);
@@ -44,7 +45,8 @@ public class OutputView {
     public void printOrderedMenu(OrderedMenu orderedMenu) {
         System.out.println(ORDERED_MENU);
         for (Map.Entry<String, Integer> entry : orderedMenu.getOrderedMenu().entrySet()){
-            System.out.println(entry.getKey() + " " + entry.getValue() + "개");
+            System.out.printf(MENU_FORMAT, entry.getKey(), entry.getValue());
+            System.out.println();
         }
         System.out.println();
     }
@@ -55,13 +57,15 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printGiveaway(boolean hasGiveaway) {
-        String giveaway = "없음";
-        if (hasGiveaway) {
-            giveaway = "샴페인 1개";
+    public void printGiveaway(Map<String, Integer> giveaway) {
+        String printingGiveaway = "없음";
+        if (giveaway.size() != 0) {
+            for (Map.Entry<String, Integer> entry : giveaway.entrySet()){
+                printingGiveaway = String.format(entry.getKey(), entry.getValue());
+            }
         }
         System.out.println(GIVEAWAY);
-        System.out.println(giveaway);
+        System.out.println(printingGiveaway);
         System.out.println();
     }
 

@@ -8,6 +8,7 @@ import java.util.Map;
 public class EventPlanner {
     private static final int GIVEAWAY_THRESHOLD = 120000;
     private static final String GIVEAWAY_ITEM = "샴페인";
+    private static final int GIVEAWAY_NUMBER = 1;
 
     private final Date date;
     private final OrderedMenu orderedMenu;
@@ -36,17 +37,19 @@ public class EventPlanner {
         return totalValueBeforeDiscount;
     }
 
-    public boolean calculateGiveaway() {
+    public Map<String, Integer> calculateGiveaway() {
         if (totalValueBeforeDiscount >= GIVEAWAY_THRESHOLD){
-            giveaway.put(GIVEAWAY_ITEM, EventConfig.MENU.valueOfKoreanName(GIVEAWAY_ITEM).getValue());
+            giveaway.put(GIVEAWAY_ITEM, GIVEAWAY_NUMBER);
         }
-        return giveaway.size() == 1;
+        return giveaway;
     }
 
     public Map<String, Integer> calculateBenefits(){
         Map<String, Integer> discounts = discount.calculateDiscount(date.getDate(), orderedMenu.calculateFoodTypeNumber().get("dessert"), orderedMenu.calculateFoodTypeNumber().get("main"));
         benefits = new HashMap<>(discounts);
-        giveaway.forEach((key, value) -> benefits.merge(key, value, (v1, v2) -> v2));
+        if (giveaway.size() != 0){
+            benefits.put(GIVEAWAY_ITEM, GIVEAWAY_NUMBER * EventConfig.MENU.valueOfKoreanName(GIVEAWAY_ITEM).getValue());
+        }
         return benefits;
     }
 
