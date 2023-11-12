@@ -74,6 +74,6 @@ public class EventPlanner {
         if (totalBenefit >= 5000){
             return "별";
         }
-        return "";
+        return "없음";
     }
 }
