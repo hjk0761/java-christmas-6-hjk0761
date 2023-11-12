@@ -19,6 +19,9 @@ public class OutputView {
     private static final String BADGE = "<12월 이벤트 배지>";
     private static final DecimalFormat THOUSAND_SEPARATOR = new DecimalFormat("#,###");
     private static final String MENU_FORMAT = "%s %d개";
+    private static final String BENEFIT_FORMAT = "%s: -%s원";
+    private static final String NONE = "없음";
+    private static final String KOREAN_WON = "원";
 
     public void printMessage(String message){
         System.out.println(message);
@@ -53,12 +56,12 @@ public class OutputView {
 
     public void printTotalValueBeforeDiscount(int totalValueBeforeDiscount) {
         System.out.println(TOTAL_VALUE_BEFORE_DISCOUNT);
-        System.out.println(THOUSAND_SEPARATOR.format(totalValueBeforeDiscount) + "원");
+        System.out.println(THOUSAND_SEPARATOR.format(totalValueBeforeDiscount) + KOREAN_WON);
         System.out.println();
     }
 
     public void printGiveaway(Map<String, Integer> giveaway) {
-        String printingGiveaway = "없음";
+        String printingGiveaway = NONE;
         if (giveaway.size() != 0) {
             for (Map.Entry<String, Integer> entry : giveaway.entrySet()){
                 printingGiveaway = String.format(MENU_FORMAT, entry.getKey(), entry.getValue());
@@ -73,12 +76,13 @@ public class OutputView {
         System.out.println(BENEFITS);
         if (benefits.size() != 0) {
             for (Map.Entry<String, Integer> entry : benefits.entrySet()) {
-                System.out.println(entry.getKey() + ": -" + THOUSAND_SEPARATOR.format(entry.getValue()) + "원");
+                System.out.printf(String.format(BENEFIT_FORMAT, entry.getKey(), THOUSAND_SEPARATOR.format(entry.getValue())));
+                System.out.println();
             }
             System.out.println();
             return;
         }
-        System.out.println("없음");
+        System.out.println(NONE);
         System.out.println();
     }
 
@@ -86,7 +90,7 @@ public class OutputView {
         String printingTotalBenefits = "0원";
         System.out.println(TOTAL_BENEFITS);
         if (totalBenefits > 0) {
-            printingTotalBenefits = "-" + THOUSAND_SEPARATOR.format(totalBenefits) + "원";
+            printingTotalBenefits = "-" + THOUSAND_SEPARATOR.format(totalBenefits) + KOREAN_WON;
         }
         System.out.println(printingTotalBenefits);
         System.out.println();
@@ -94,7 +98,7 @@ public class OutputView {
 
     public void printTotalValueAfterDiscount(int totalValueAfterDiscount) {
         System.out.println(TOTAL_VALUE_AFTER_DISCOUNT);
-        System.out.println(THOUSAND_SEPARATOR.format(totalValueAfterDiscount) + "원");
+        System.out.println(THOUSAND_SEPARATOR.format(totalValueAfterDiscount) + KOREAN_WON);
         System.out.println();
     }
 
