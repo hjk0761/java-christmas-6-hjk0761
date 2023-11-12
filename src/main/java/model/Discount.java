@@ -44,7 +44,7 @@ public class Discount {
     }
 
     private Map<String, Integer> discountWeekDay(int day, int dessert){
-        if (!EventConfig.WEEKEND.contains(day)){
+        if (!EventConfig.WEEKEND.contains(day) && dessert != 0){
             int weekday = dessert * WEEKDAY_DISCOUNT_AMOUNT;
             totalDiscount += weekday;
             return new HashMap<>(){{put(WEEKDAY_DISCOUNT, weekday);}};
@@ -53,7 +53,7 @@ public class Discount {
     }
 
     private Map<String, Integer> discountWeekEnd(int day, int main){
-        if (EventConfig.WEEKEND.contains(day)){
+        if (EventConfig.WEEKEND.contains(day) && main != 0){
             int weekend = main * WEEKEND_DISCOUNT_AMOUNT;
             totalDiscount += weekend;
             return new HashMap<>(){{put(WEEKEND_DISCOUNT, weekend);}};

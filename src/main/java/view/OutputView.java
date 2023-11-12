@@ -71,15 +71,24 @@ public class OutputView {
 
     public void printBenefits(Map<String, Integer> benefits) {
         System.out.println(BENEFITS);
-        for (Map.Entry<String, Integer> entry : benefits.entrySet()) {
-            System.out.println(entry.getKey() + ": -" + THOUSAND_SEPARATOR.format(entry.getValue()) + "원");
+        if (benefits.size() != 0) {
+            for (Map.Entry<String, Integer> entry : benefits.entrySet()) {
+                System.out.println(entry.getKey() + ": -" + THOUSAND_SEPARATOR.format(entry.getValue()) + "원");
+            }
+            System.out.println();
+            return;
         }
+        System.out.println("없음");
         System.out.println();
     }
 
     public void printTotalBenefits(int totalBenefits) {
+        String printingTotalBenefits = "0원";
         System.out.println(TOTAL_BENEFITS);
-        System.out.println("-" + THOUSAND_SEPARATOR.format(totalBenefits) + "원");
+        if (totalBenefits > 0) {
+            printingTotalBenefits = "-" + THOUSAND_SEPARATOR.format(totalBenefits) + "원";
+        }
+        System.out.println(printingTotalBenefits);
         System.out.println();
     }
 
