@@ -14,6 +14,7 @@ public class EventPlanner {
     private final int totalValueBeforeDiscount;
     private final Map<String, Integer> giveaway = new HashMap<>();
     private Map<String, Integer> benefits;
+    private int totalBenefit = 0;
 
     Discount discount = new Discount();
 
@@ -50,14 +51,26 @@ public class EventPlanner {
     }
 
     public int calculateTotalBenefits(){
-        int totalBenefits = 0;
         for (Map.Entry<String, Integer> entry : benefits.entrySet()){
-            totalBenefits += entry.getValue();
+            totalBenefit += entry.getValue();
         }
-        return totalBenefits;
+        return totalBenefit;
     }
 
     public int calculateTotalValueAfterDiscount(){
         return totalValueBeforeDiscount - discount.getTotalDiscount();
+    }
+
+    public String calculateBadge() {
+        if (totalBenefit >= 20000){
+            return "산타";
+        }
+        if (totalBenefit >= 10000){
+            return "트리";
+        }
+        if (totalBenefit >= 5000){
+            return "별";
+        }
+        return "";
     }
 }

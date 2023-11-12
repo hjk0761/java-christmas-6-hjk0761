@@ -86,7 +86,11 @@ public class OutputView {
     }
 
     public void printBadge(String badge) {
+        String printingBadge = "없음";
+        if (badge.length() != 0){
+            printingBadge = badge;
+        }
         System.out.println(BADGE);
-        System.out.println(badge);
+        System.out.println(printingBadge);
     }
 }

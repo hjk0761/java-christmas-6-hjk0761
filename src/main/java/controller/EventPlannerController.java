@@ -58,7 +58,7 @@ public class EventPlannerController {
         outputView.printBenefits(eventPlanner.calculateBenefits());
         outputView.printTotalBenefits(eventPlanner.calculateTotalBenefits());
         outputView.printTotalValueAfterDiscount(eventPlanner.calculateTotalValueAfterDiscount());
-        // TODO: Badge
+        outputView.printBadge(eventPlanner.calculateBadge());
     }
 
     private void finish(){
