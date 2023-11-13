@@ -9,6 +9,10 @@ public class EventPlanner {
     private static final int GIVEAWAY_THRESHOLD = 120000;
     private static final String GIVEAWAY_ITEM = "샴페인";
     private static final int GIVEAWAY_NUMBER = 1;
+    private static final String firstBadge = "산타";
+    private static final String secondBadge = "트리";
+    private static final String thirdBadge = "별";
+    private static final String nonBadge = "없음";
 
     private final Date date;
     private final OrderedMenu orderedMenu;
@@ -66,14 +70,14 @@ public class EventPlanner {
 
     public String calculateBadge() {
         if (totalBenefit >= 20000){
-            return "산타";
+            return firstBadge;
         }
         if (totalBenefit >= 10000){
-            return "트리";
+            return secondBadge;
         }
         if (totalBenefit >= 5000){
-            return "별";
+            return thirdBadge;
         }
-        return "없음";
+        return nonBadge;
     }
 }
