@@ -9,6 +9,7 @@ public class EventPlanner {
     private static final int GIVEAWAY_THRESHOLD = 120000;
     private static final String GIVEAWAY_ITEM = "샴페인";
     private static final int GIVEAWAY_NUMBER = 1;
+    private static final String GIVEAWAY_EVENT = "증정 이벤트";
     private static final String WEEKDAY_CONDITION = "dessert";
     private static final String WEEKEND_CONDITION = "main";
     private static final String firstBadge = "산타";
@@ -60,7 +61,7 @@ public class EventPlanner {
                 orderedMenu.calculateFoodTypeNumber().get(WEEKEND_CONDITION));
         benefits = new HashMap<>(discounts);
         if (giveaway.size() != 0) {
-            benefits.put(GIVEAWAY_ITEM, GIVEAWAY_NUMBER * EventConfig.MENU.valueOfKoreanName(GIVEAWAY_ITEM).getValue());
+            benefits.put(GIVEAWAY_EVENT, GIVEAWAY_NUMBER * EventConfig.MENU.valueOfKoreanName(GIVEAWAY_ITEM).getValue());
         }
         return benefits;
     }
