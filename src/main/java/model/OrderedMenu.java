@@ -5,6 +5,9 @@ import config.ErrorMessage;
 import config.EventConfig;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class OrderedMenu {
 
@@ -38,12 +41,9 @@ public class OrderedMenu {
     }
 
     public Map<String, Integer> calculateFoodTypeNumber() {
-        Map<String, Integer> foodTypeNumber = new HashMap<>(){{
-            put("appetizer", 0);
-            put("main", 0);
-            put("dessert", 0);
-            put("beverage", 0);
-        }};
+        Map<String, Integer> foodTypeNumber = EventConfig.MENU.valueOfFoodTypeList()
+                .stream()
+                .collect(Collectors.toMap(type -> type, type -> 0));
         for (Map.Entry<String, Integer> entry : orderedMenu.entrySet()) {
             String foodType = EventConfig.MENU.valueOfKoreanName(entry.getKey()).getFoodType();
             foodTypeNumber.put(foodType, foodTypeNumber.get(foodType) + entry.getValue());

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class EventConfig {
     public static final List<Integer> WEEKEND = new ArrayList<>(List.of(1, 2, 8, 9, 15, 16, 22, 23, 29, 30));
@@ -56,6 +57,8 @@ public class EventConfig {
         public static List<String> valueOfFoodTypeList(){
             return Arrays.stream(values())
                     .map(MENU::getFoodType)
+                    .collect(Collectors.toSet())
+                    .stream()
                     .toList();
         }
     }
