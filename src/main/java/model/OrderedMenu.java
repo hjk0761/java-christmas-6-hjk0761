@@ -5,9 +5,7 @@ import config.ErrorMessage;
 import config.EventConfig;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class OrderedMenu {
 
@@ -58,20 +56,20 @@ public class OrderedMenu {
     }
 
     private Map<String, Integer> validateForm(String inputOrderedMenu){
-        List<String> temp = List.of(inputOrderedMenu.split(ORDER_SEPARATOR));
-        Map<String, Integer> temp3 = new HashMap<>();
-        for (String tempMenu : temp){
-            List<String> temp4 = List.of(tempMenu.split(MENU_SEPARATOR));
+        List<String> eachMenus = List.of(inputOrderedMenu.split(ORDER_SEPARATOR));
+        Map<String, Integer> orderingMenu = new HashMap<>();
+        for (String eachMenu : eachMenus){
+            List<String> menuNumber = List.of(eachMenu.split(MENU_SEPARATOR));
             try{
-                if (temp3.containsKey(temp4.get(0))){
+                if (orderingMenu.containsKey(menuNumber.get(0))){
                     throw new IllegalArgumentException(ErrorMessage.NON_VALID_MENU.getErrorMessage());
                 }
-                temp3.put(temp4.get(0), Integer.parseInt(temp4.get(1)));
+                orderingMenu.put(menuNumber.get(0), Integer.parseInt(menuNumber.get(1)));
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 throw new IllegalArgumentException(ErrorMessage.NON_VALID_MENU.getErrorMessage());
             }
         }
-        return temp3;
+        return orderingMenu;
     }
 
     private void validateNotInMenu(Map<String, Integer> orderedMenu){
