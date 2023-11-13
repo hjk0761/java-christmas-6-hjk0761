@@ -67,7 +67,7 @@ public class OrderedMenu {
                     throw new IllegalArgumentException(ErrorMessage.NON_VALID_MENU.getErrorMessage());
                 }
                 temp3.put(temp4.get(0), Integer.parseInt(temp4.get(1)));
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 throw new IllegalArgumentException(ErrorMessage.NON_VALID_MENU.getErrorMessage());
             }
         }
