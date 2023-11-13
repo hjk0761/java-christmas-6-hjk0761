@@ -7,23 +7,25 @@ import view.InputView;
 import view.OutputView;
 
 public class EventPlannerController {
+
     private EventPlanner eventPlanner;
+
     InputView inputView = new InputView();
     OutputView outputView = new OutputView();
 
-    public void start(){
+    public void start() {
         init();
         process();
     }
 
-    private void init(){
+    private void init() {
         outputView.printInit();
         Date date = setDate();
         OrderedMenu orderedMenu = setOrderedMenu();
         eventPlanner = new EventPlanner(date, orderedMenu);
     }
 
-    private Date setDate(){
+    private Date setDate() {
         Date date = null;
         do {
             try {
@@ -36,7 +38,7 @@ public class EventPlannerController {
         return date;
     }
 
-    private OrderedMenu setOrderedMenu(){
+    private OrderedMenu setOrderedMenu() {
         OrderedMenu orderedMenu = null;
         do {
             try {
@@ -49,7 +51,7 @@ public class EventPlannerController {
         return orderedMenu;
     }
 
-    private void process(){
+    private void process() {
         outputView.printEvent(eventPlanner.getDate());
         outputView.printOrderedMenu(eventPlanner.getOrderedMenu());
         outputView.printTotalValueBeforeDiscount(eventPlanner.getTotalValueBeforeDiscount());

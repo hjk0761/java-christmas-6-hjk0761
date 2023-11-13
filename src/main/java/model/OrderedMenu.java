@@ -1,10 +1,12 @@
 package model;
 
-
 import config.ErrorMessage;
 import config.EventConfig;
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class OrderedMenu {
@@ -16,7 +18,7 @@ public class OrderedMenu {
 
     private final Map<String, Integer> orderedMenu;
 
-    public OrderedMenu(String inputOrderedMenu){
+    public OrderedMenu(String inputOrderedMenu) {
         Map<String, Integer> orderedMenu;
         validateEmpty(inputOrderedMenu);
         orderedMenu = validateForm(inputOrderedMenu);
@@ -49,19 +51,19 @@ public class OrderedMenu {
         return foodTypeNumber;
     }
 
-    private void validateEmpty(String inputOrderedMenu){
-        if (inputOrderedMenu == null || inputOrderedMenu.equals("")){
+    private void validateEmpty(String inputOrderedMenu) {
+        if (inputOrderedMenu == null || inputOrderedMenu.equals("")) {
             throw new IllegalArgumentException(ErrorMessage.NON_VALID_MENU.getErrorMessage());
         }
     }
 
-    private Map<String, Integer> validateForm(String inputOrderedMenu){
+    private Map<String, Integer> validateForm(String inputOrderedMenu) {
         List<String> eachMenus = List.of(inputOrderedMenu.split(ORDER_SEPARATOR));
         Map<String, Integer> orderingMenu = new HashMap<>();
-        for (String eachMenu : eachMenus){
+        for (String eachMenu : eachMenus) {
             List<String> menuNumber = List.of(eachMenu.split(MENU_SEPARATOR));
-            try{
-                if (orderingMenu.containsKey(menuNumber.get(0))){
+            try {
+                if (orderingMenu.containsKey(menuNumber.get(0))) {
                     throw new IllegalArgumentException(ErrorMessage.NON_VALID_MENU.getErrorMessage());
                 }
                 orderingMenu.put(menuNumber.get(0), Integer.parseInt(menuNumber.get(1)));
@@ -72,33 +74,33 @@ public class OrderedMenu {
         return orderingMenu;
     }
 
-    private void validateNotInMenu(Map<String, Integer> orderedMenu){
-        for (String menuName : orderedMenu.keySet()){
-            if (EventConfig.MENU.valueOfKoreanName(menuName) == null){
+    private void validateNotInMenu(Map<String, Integer> orderedMenu) {
+        for (String menuName : orderedMenu.keySet()) {
+            if (EventConfig.MENU.valueOfKoreanName(menuName) == null) {
                 throw new IllegalArgumentException(ErrorMessage.NON_VALID_MENU.getErrorMessage());
             }
         }
     }
 
-    private void validateMenuNumber(Map<String, Integer> orderedMenu){
+    private void validateMenuNumber(Map<String, Integer> orderedMenu) {
         int totalMenuNumber = 0;
-        for (int menuNumber : orderedMenu.values()){
+        for (int menuNumber : orderedMenu.values()) {
             totalMenuNumber += menuNumber;
-            if (menuNumber <= 0){
+            if (menuNumber <= 0) {
                 throw new IllegalArgumentException(ErrorMessage.NON_VALID_MENU.getErrorMessage());
             }
         }
-        if (totalMenuNumber > MAX_MENU){
+        if (totalMenuNumber > MAX_MENU) {
             throw new IllegalArgumentException(String.format(ErrorMessage.OVER_MAX_MENU.getErrorMessage(), MAX_MENU));
         }
     }
 
-    private void validateNotUnique(Map<String, Integer> orderedMenu){
+    private void validateNotUnique(Map<String, Integer> orderedMenu) {
         Set<String> typeTester = new HashSet<>();
-        for (String menuName : orderedMenu.keySet()){
+        for (String menuName : orderedMenu.keySet()) {
             typeTester.add(EventConfig.MENU.valueOfKoreanName(menuName).getFoodType());
         }
-        if (typeTester.size() == 1 && typeTester.contains(UNIQUE_CONDITION)){
+        if (typeTester.size() == 1 && typeTester.contains(UNIQUE_CONDITION)) {
             throw new IllegalArgumentException(ErrorMessage.ALL_BEVERAGE_MENU.getErrorMessage());
         }
     }

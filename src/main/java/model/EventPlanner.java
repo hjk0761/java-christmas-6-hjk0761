@@ -1,14 +1,16 @@
 package model;
 
 import config.EventConfig;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class EventPlanner {
+
     private static final int GIVEAWAY_THRESHOLD = 120000;
     private static final String GIVEAWAY_ITEM = "샴페인";
     private static final int GIVEAWAY_NUMBER = 1;
+    private static final String WEEKDAY_CONDITION = "dessert";
+    private static final String WEEKEND_CONDITION = "main";
     private static final String firstBadge = "산타";
     private static final int firstBadgeCondition = 20000;
     private static final String secondBadge = "트리";
@@ -26,7 +28,7 @@ public class EventPlanner {
 
     Discount discount = new Discount();
 
-    public EventPlanner(Date date, OrderedMenu orderedMenu){
+    public EventPlanner(Date date, OrderedMenu orderedMenu) {
         this.date = date;
         this.orderedMenu = orderedMenu;
         this.totalValueBeforeDiscount = orderedMenu.calculateTotalValue();
@@ -45,40 +47,43 @@ public class EventPlanner {
     }
 
     public Map<String, Integer> calculateGiveaway() {
-        if (totalValueBeforeDiscount >= GIVEAWAY_THRESHOLD){
+        if (totalValueBeforeDiscount >= GIVEAWAY_THRESHOLD) {
             giveaway.put(GIVEAWAY_ITEM, GIVEAWAY_NUMBER);
         }
         return giveaway;
     }
 
-    public Map<String, Integer> calculateBenefits(){
-        Map<String, Integer> discounts = discount.calculateDiscount(date.getDate(), orderedMenu.calculateFoodTypeNumber().get("dessert"), orderedMenu.calculateFoodTypeNumber().get("main"));
+    public Map<String, Integer> calculateBenefits() {
+        Map<String, Integer> discounts = discount.calculateDiscount(
+                date.getDate(),
+                orderedMenu.calculateFoodTypeNumber().get(WEEKDAY_CONDITION),
+                orderedMenu.calculateFoodTypeNumber().get(WEEKEND_CONDITION));
         benefits = new HashMap<>(discounts);
-        if (giveaway.size() != 0){
+        if (giveaway.size() != 0) {
             benefits.put(GIVEAWAY_ITEM, GIVEAWAY_NUMBER * EventConfig.MENU.valueOfKoreanName(GIVEAWAY_ITEM).getValue());
         }
         return benefits;
     }
 
-    public int calculateTotalBenefits(){
-        for (Map.Entry<String, Integer> entry : benefits.entrySet()){
+    public int calculateTotalBenefits() {
+        for (Map.Entry<String, Integer> entry : benefits.entrySet()) {
             totalBenefit += entry.getValue();
         }
         return totalBenefit;
     }
 
-    public int calculateTotalValueAfterDiscount(){
+    public int calculateTotalValueAfterDiscount() {
         return totalValueBeforeDiscount - discount.getTotalDiscount();
     }
 
     public String calculateBadge() {
-        if (totalBenefit >= firstBadgeCondition){
+        if (totalBenefit >= firstBadgeCondition) {
             return firstBadge;
         }
-        if (totalBenefit >= secondBadgeCondition){
+        if (totalBenefit >= secondBadgeCondition) {
             return secondBadge;
         }
-        if (totalBenefit >= thirdBadgeCondition){
+        if (totalBenefit >= thirdBadgeCondition) {
             return thirdBadge;
         }
         return nonBadge;

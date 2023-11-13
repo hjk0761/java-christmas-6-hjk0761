@@ -1,11 +1,11 @@
 package view;
 
 import model.OrderedMenu;
-
 import java.text.DecimalFormat;
 import java.util.Map;
 
 public class OutputView {
+
     private static final String INIT_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
     private static final String READ_DATE = "12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)";
     private static final String READ_MENU = "주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)";
@@ -23,7 +23,7 @@ public class OutputView {
     private static final String NONE = "없음";
     private static final String KOREAN_WON = "원";
 
-    public void printMessage(String message){
+    public void printMessage(String message) {
         System.out.println(message);
     }
 
@@ -47,7 +47,7 @@ public class OutputView {
 
     public void printOrderedMenu(OrderedMenu orderedMenu) {
         System.out.println(ORDERED_MENU);
-        for (Map.Entry<String, Integer> entry : orderedMenu.getOrderedMenu().entrySet()){
+        for (Map.Entry<String, Integer> entry : orderedMenu.getOrderedMenu().entrySet()) {
             System.out.printf(MENU_FORMAT, entry.getKey(), entry.getValue());
             System.out.println();
         }
@@ -63,7 +63,7 @@ public class OutputView {
     public void printGiveaway(Map<String, Integer> giveaway) {
         String printingGiveaway = NONE;
         if (giveaway.size() != 0) {
-            for (Map.Entry<String, Integer> entry : giveaway.entrySet()){
+            for (Map.Entry<String, Integer> entry : giveaway.entrySet()) {
                 printingGiveaway = String.format(MENU_FORMAT, entry.getKey(), entry.getValue());
             }
         }

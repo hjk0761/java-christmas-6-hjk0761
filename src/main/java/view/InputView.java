@@ -6,12 +6,12 @@ import model.OrderedMenu;
 
 public class InputView {
 
-    public Date readDate(){
+    public Date readDate() {
         String input = Console.readLine();
         return new Date(input);
     }
 
-    public OrderedMenu readMenu(){
+    public OrderedMenu readMenu() {
         String input = Console.readLine();
         return new OrderedMenu(input);
     }

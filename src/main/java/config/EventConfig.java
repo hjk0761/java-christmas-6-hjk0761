@@ -7,9 +7,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class EventConfig {
+
     public static final List<Integer> WEEKEND = new ArrayList<>(List.of(1, 2, 8, 9, 15, 16, 22, 23, 29, 30));
     public static final List<Integer> SPECIAL = new ArrayList<>(List.of(3, 10, 17, 24, 25, 31));
-    public enum MENU{
+
+    public enum MENU {
         MUSHROOM_SOUP("양송이수프", "appetizer", 6000),
         TAPAS("타파스", "appetizer", 5500),
         CAESAR_SALAD("시저샐러드", "appetizer", 8000),
@@ -33,11 +35,11 @@ public class EventConfig {
             this.value = value;
         }
 
-        public String getFoodType(){
+        public String getFoodType() {
             return foodType;
         }
 
-        public int getValue(){
+        public int getValue() {
             return value;
         }
 
@@ -48,7 +50,7 @@ public class EventConfig {
                     .orElse(null);
         }
 
-        public static List<String> valueOfFoodTypeList(){
+        public static List<String> valueOfFoodTypeList() {
             return Arrays.stream(values())
                     .map(MENU::getFoodType)
                     .collect(Collectors.toSet())
