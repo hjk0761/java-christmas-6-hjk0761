@@ -21,7 +21,6 @@ public class OrderedMenu {
         orderedMenu = validateForm(inputOrderedMenu);
         validateNotInMenu(orderedMenu);
         validateMenuNumber(orderedMenu);
-        validateDuplication(orderedMenu);
         validateNotUnique(orderedMenu);
         this.orderedMenu = orderedMenu;
     }
@@ -60,15 +59,15 @@ public class OrderedMenu {
 
     private Map<String, Integer> validateForm(String inputOrderedMenu){
         List<String> temp = List.of(inputOrderedMenu.split(ORDER_SEPARATOR));
-        List<List<String>> temp2 = new ArrayList<>();
         Map<String, Integer> temp3 = new HashMap<>();
         for (String tempMenu : temp){
-            temp2.add(List.of(tempMenu.split(MENU_SEPARATOR)));
-        }
-        for (List<String> temp4 : temp2){
+            List<String> temp4 = List.of(tempMenu.split(MENU_SEPARATOR));
             try{
+                if (temp3.containsKey(temp4.get(0))){
+                    throw new IllegalArgumentException(ErrorMessage.NON_VALID_MENU.getErrorMessage());
+                }
                 temp3.put(temp4.get(0), Integer.parseInt(temp4.get(1)));
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 throw new IllegalArgumentException(ErrorMessage.NON_VALID_MENU.getErrorMessage());
             }
         }
@@ -93,13 +92,6 @@ public class OrderedMenu {
         }
         if (totalMenuNumber > MAX_MENU){
             throw new IllegalArgumentException(String.format(ErrorMessage.OVER_MAX_MENU.getErrorMessage(), MAX_MENU));
-        }
-    }
-
-    private void validateDuplication(Map<String, Integer> orderedMenu){
-        Set<String> duplicationTester = new HashSet<>(orderedMenu.keySet());
-        if (duplicationTester.size() != orderedMenu.size()){
-            throw new IllegalArgumentException(ErrorMessage.NON_VALID_MENU.getErrorMessage());
         }
     }
 
