@@ -48,12 +48,6 @@ public class EventConfig {
                     .orElse(null);
         }
 
-        public static int valueOfNumberOfFoodType(String foodType) {
-            return (int) Arrays.stream(values())
-                    .filter(value -> Objects.equals(value.foodType, foodType))
-                    .count();
-        }
-
         public static List<String> valueOfFoodTypeList(){
             return Arrays.stream(values())
                     .map(MENU::getFoodType)
