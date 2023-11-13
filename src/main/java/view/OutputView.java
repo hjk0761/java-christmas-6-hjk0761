@@ -87,12 +87,12 @@ public class OutputView {
     }
 
     public void printTotalBenefits(int totalBenefits) {
-        String printingTotalBenefits = "0원";
+        String printingTotalBenefits = "0";
         System.out.println(TOTAL_BENEFITS);
         if (totalBenefits > 0) {
-            printingTotalBenefits = "-" + THOUSAND_SEPARATOR.format(totalBenefits) + KOREAN_WON;
+            printingTotalBenefits = "-" + THOUSAND_SEPARATOR.format(totalBenefits);
         }
-        System.out.println(printingTotalBenefits);
+        System.out.println(printingTotalBenefits + KOREAN_WON);
         System.out.println();
     }
 
