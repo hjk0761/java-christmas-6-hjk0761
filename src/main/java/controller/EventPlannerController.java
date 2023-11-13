@@ -11,13 +11,12 @@ public class EventPlannerController {
     InputView inputView = new InputView();
     OutputView outputView = new OutputView();
 
-    public void init(){
-        start();
+    public void start(){
+        init();
         process();
-        finish();
     }
 
-    private void start(){
+    private void init(){
         outputView.printInit();
         Date date = setDate();
         OrderedMenu orderedMenu = setOrderedMenu();
@@ -59,9 +58,5 @@ public class EventPlannerController {
         outputView.printTotalBenefits(eventPlanner.calculateTotalBenefits());
         outputView.printTotalValueAfterDiscount(eventPlanner.calculateTotalValueAfterDiscount());
         outputView.printBadge(eventPlanner.calculateBadge());
-    }
-
-    private void finish(){
-        // TODO
     }
 }
